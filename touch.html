@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				position:absolute;
+				width:200px;
+				height:200px;
+				background:#ccc;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="box"></div>
+		<script>
+//			window.onload=function(){
+				
+//			     console.log(oDiv)
+//			oDiv.onmousedown=function(ev){
+//				var disX=ev.clientX-oDiv.offsetLeft;
+//				var disY=ev.clientY-oDiv.offsetTop;
+//			 document.onmousemove=function(ev){
+//			 	
+//			 	oDiv.style.left=ev.clientX-disX+"px";
+//			 	oDiv.style.top=ev.clientY-disY+"px";
+//			 }
+//			 document.onmouseup=function(){
+//			 	document.onmousemove=document.onmouseup=null;
+//			 }
+//			}
+//           	}
+			//移动端
+			//DOMContentLoaded是加载给document,代表dom结构加载完成；
+			document.addEventListener("DOMContentLoaded",function(){
+				var oDiv=document.getElementById("box");
+				oDiv.addEventListener("touchstart",function(ev){
+					console.log(ev);
+				 var disX=ev.targetTouches[0].clientX-oDiv.offsetLeft;
+				 var disY=ev.targetTouches[0].clientY-oDiv.offsetTop;
+				document.addEventListener("touchmove",fnMove,false);
+				function fnMove(ev){
+					console.log(ev)
+					oDiv.style.left=ev.targetTouches[0].clientX-disX+"px";
+			 	    oDiv.style.top=ev.targetTouches[0].clientY-disY+"px";
+				}
+				document.addEventListener("touchend",fnUp,false)
+				function fnUp(){
+					document.removeEventListener("touchmove",fnMove);
+					document.removeEventListener("touchend",fnUp);
+				}
+				
+				 ev.preventDefault();
+				
+            },false);
+			},false);
+			
+		</script>
+	</body>
+</html>
